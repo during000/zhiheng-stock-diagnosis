@@ -1,0 +1,2 @@
+import {researchData} from '@/lib/research-data';
+export async function GET(){try{const {provider,screen}=await researchData();return Response.json({provider,financials:screen.stocks.map((s:any)=>({code:s.code,name:s.name,verification:s.fuyaoFinancial||null}))},{headers:{'Cache-Control':'no-store'}});}catch(e){return Response.json({error:e instanceof Error?e.message:'扶摇暂时不可用',status:'error'},{status:503,headers:{'Cache-Control':'no-store'}});}}

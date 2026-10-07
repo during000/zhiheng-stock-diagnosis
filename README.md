@@ -5,7 +5,7 @@
 - [打开产品](https://evidence-stock-diagnosis.eva000.chatgpt.site/)
 - [源代码](https://github.com/during000/zhiheng-stock-diagnosis)
 - [交付清单与三题验收入口](docs/DELIVERY.md)
-- [事件题114秒操作视频](https://evidence-stock-diagnosis.eva000.chatgpt.site/media/event-demo.mp4)（必交）；[视频源文件](public/media/event-demo.mp4)
+- [事件题142秒最终版操作视频](https://evidence-stock-diagnosis.eva000.chatgpt.site/media/event-demo.mp4)（必交）；[视频源文件](public/media/event-demo.mp4)
 
 ## 目标用户与设计
 
@@ -45,7 +45,7 @@
 - 事件：贵州茅台临2024-025、临2025-001/013/025/032；仅五个已收录节点，非全网最初来源或完整公告流。“拟注销”不等于已注销。
 - 资料采集于2026-10-07。披露时间不以PDF路径日期代替，入库时间不代替发生或披露时间；日精度不补造时分秒。
 - 年度和半年分别比较；合同负债相对上年末不称同比；营业收入不混入利息收入；直销占比以酒类主营业务收入为分母；合并现金流含财务子公司，不能直接等同酒类回款。
-- 扶摇API、iFinD MCP没有可用授权，未连接。题目优先来源不可用时采用明确标注的公开材料，没有使用受限接口或伪称授权。
+- 已接入扶摇行情、财务核验及最新估值快照。正常生成/执行优先调用扶摇；15分钟服务端缓存。固定研究窗口不变，财务字段须与公告相符。iFinD未连接。缺失、权限或冲突明确报错；未配置扶摇时标明公开历史快照模式。详见[接入验证](docs/FUYAO_INTEGRATION.md)。
 
 字段整理脚本是开发记录，不是自动财报解析器。生成诊断只刷新解释，不刷新行情或公告；本产品明确用于上述历史快照的研究。更换资料须重新核验字段、时间、SHA和测试。
 
@@ -82,7 +82,7 @@ npx tsc --noEmit
 - AI使用、错误修正及真实调用记录：[诊断](docs/AI_USAGE.md)、[事件](docs/EVENT_AI_USAGE.md)、[选股](docs/SCREEN_AI_USAGE.md)。
 - 主链路、数据/接口异常、极端与合规测试：[诊断](docs/TESTING.md)、[事件](docs/EVENT_TESTING.md)、[选股](docs/SCREEN_TESTING.md)。
 - [前端验收](docs/WORKBENCH_VALIDATION.md)、[最终验收](docs/FINAL_VALIDATION.md)。历史验证与本次最终验证分别标注，部署成功不等同模型每次可用。
-- 第一、第三题视频可选，未另录；第二题视频114秒，为实际产品操作画面剪辑，展示旧版布局，功能链路仍适用，非连续实时录屏。
+- 第一、第三题视频可选，未另录；第二题142秒视频为最终统一界面实际操作画面剪辑，无配音，非连续实时录屏。
 
 ## 已知边界与未做事项
 
@@ -91,3 +91,7 @@ npx tsc --noEmit
 没有后台公告采集、自动来源核验、研报全文授权、邮件/短信通知、跨设备账号同步。事件归并为可解释的简化锚点规则，不是任意复杂事件的通用聚类。冲突检测主要针对同披露日的确认字段；不同日相反陈述仍需人工判断是变化还是纠错。过期演练验证状态与通知，不宣称正在监控现实事件。
 
 D1随机HttpOnly cookie隔离浏览器工作区，保存策略及事件；未保存草稿/诊断仅在单页会话保留，导出在本机。不是生产多租户权限系统。模型有外部服务失败与语义错误风险；未做全面金融合规、红队、负载或所有辅助技术审计。无服务端额度管理，公开链接用于有限评审体验。
+
+## 扶摇配置
+
+在本机忽略的`.env`配置`FUYAO_API_KEY`，与模型密钥一起复制到本地Worker的`.dev.vars`；线上只配置服务端secret。重新发布后生效。不要把密钥发到前端、Git或压缩包。`/api/fuyao`可检查实际连接，`/api/health`只报告是否配置，不冒充调用成功。详细验证和已知失败见[FUYAO_INTEGRATION](docs/FUYAO_INTEGRATION.md)。

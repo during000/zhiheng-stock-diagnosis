@@ -4,7 +4,7 @@
 
 - Web产品：https://evidence-stock-diagnosis.eva000.chatgpt.site/
 - 代码与README：https://github.com/during000/zhiheng-stock-diagnosis
-- 第二题必交视频：https://evidence-stock-diagnosis.eva000.chatgpt.site/media/event-demo.mp4 （114秒）。源文件：`public/media/event-demo.mp4`。
+- 第二题必交视频：https://evidence-stock-diagnosis.eva000.chatgpt.site/media/event-demo.mp4 （142秒）。源文件：`public/media/event-demo.mp4`。
 - 最终线上验收、访问状态、浏览器验证和测试结果：`FINAL_VALIDATION.md`。请以该记录确认当前状态。
 
 ## 三题核心能力
@@ -29,6 +29,6 @@
 
 ## 提交范围与边界
 
-三家公司真实历史样本；完整诊断与事件仅茅台。财务2026H1、行情2026-09-30、事件2024–2025；没有实时数据服务、后台监控、全A筛选、回测或跨设备账号。保存/比较满足选股题要求中的研究延续选项。无扶摇/iFinD授权，来源替代与口径已说明。
+三家公司真实历史样本；完整诊断与事件仅茅台。财务2026H1、行情2026-09-30、事件2024–2025；最新行情/估值可手动核验，但没有实时推送服务、后台监控、全A筛选、回测或跨设备账号。保存/比较满足选股题要求中的研究延续选项。扶摇已接入，iFinD仍未接入；原公告继续作为财务与事件的一手证据。
 
-第一、第三题视频可选，未单独录制。第二题视频采用实际产品操作画面剪辑，展示旧布局；当前入口按上述步骤操作。源码不含密钥、持仓或用户隐私。
+第一、第三题视频可选，未单独录制。第二题142秒视频采用最终统一界面实际操作画面剪辑；无配音，非连续实时录屏。源码不含密钥、持仓或用户隐私。

@@ -1,4 +1,5 @@
-import evidence from '@/data/evidence.json';
+import baseline from '@/data/evidence.json';
+import {researchData} from '@/lib/research-data';
 import { buildDiagnosis, dimensions, selectDimensions, validateInterpretation, isAdvice } from '@/lib/engine.mjs';
 import { env } from 'cloudflare:workers';
 export async function POST(request:Request){
@@ -11,8 +12,10 @@ export async function POST(request:Request){
   if(input.scenario&&!['normal','missing','failure','conflict','stale'].includes(input.scenario))return response({error:'异常场景无效'},400);
   const selected=input.dimensions?.length?input.dimensions:selectDimensions(input.question);
   if(!Array.isArray(selected)||selected.some((d:unknown)=>!dimensions.includes(d as string)))return response({error:'维度无效'},400);
+  let evidence=baseline,provider:unknown={status:'simulation'};
+  if(!input.scenario||input.scenario==='normal'){try{const current=await researchData();evidence=current.evidence;provider=current.provider;}catch(e){return response({error:e instanceof Error?e.message:'扶摇数据不可用；保留上一版'},503);}}
   const diagnosis=buildDiagnosis(evidence,input.question,selected,input.scenario||'normal');
-  const result={...diagnosis,generatedAt:new Date().toISOString(),ai:{status:'unavailable',model:null as string|null,reason:'',insights:[] as unknown[],message:''}};
+  const result={...diagnosis,dataset:evidence,provider,generatedAt:new Date().toISOString(),ai:{status:'unavailable',model:null as string|null,reason:'',insights:[] as unknown[],message:''}};
   if(isAdvice(input.question)){result.ai.message='该问题涉及买卖决策或涨跌预测，已转为公司状态与风险研究。请选择可验证的经营、财务或估值问题。';result.ai.status='blocked';return response(result);}
   if(input.scenario==='failure'){result.ai.message='异常演练：模拟数据接口失败，行情与估值计算已停止；已核验财报仍可查阅。';return response(result);}
   const runtime=env as unknown as Record<string,string>;

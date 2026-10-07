@@ -1,7 +1,7 @@
 'use client';
 import {useCallback,useEffect,useRef,useState} from 'react';
 import {PanelLeftClose,PanelLeftOpen,Search,ChartNoAxesCombined,GitBranch,Layers3,ShieldCheck,BookOpen,ChevronRight,CornerDownLeft} from 'lucide-react';
-import Screen from './Screen';import Diagnosis from './Diagnosis';import Events from './Events';
+import FuyaoEvidence from './FuyaoEvidence';import Screen from './Screen';import Diagnosis from './Diagnosis';import Events from './Events';
 import {Research,type View,type ScreenSummary} from './workspace-context';
 const modes=[{id:'screen' as View,label:'意图选股',hint:'把想法变成条件',icon:Search},{id:'diagnosis' as View,label:'个股诊断',hint:'理解公司当前状态',icon:ChartNoAxesCombined},{id:'events' as View,label:'事件证据',hint:'追踪事实如何变化',icon:GitBranch}];
 const questions:Record<string,string>={screen:'筛选条件中的收入、利润与估值，是否足以证明经营改善？还缺少哪些证据？',buyback:'回购涉及的资金使用与股本变化，应如何结合财务资料继续核验？'};
@@ -18,7 +18,7 @@ export default function Workbench({initialView}:{initialView:View}){
  <nav className="workspace-nav" aria-label="研究模块">{modes.map(m=><button key={m.id} className={view===m.id?'is-current':''} onClick={()=>switchView(m.id)} aria-current={view===m.id?'page':undefined} title={m.label}><m.icon size={19}/><span><b>{m.label}</b></span>{view===m.id&&<ChevronRight size={14}/>}</button>)}</nav>
  {(screen&&view!=='screen')&&<div className="workspace-context"><div className="context-item"><span>最近一次筛选</span><p>入选 {screen.counts.included} / {screen.counts.included+screen.counts.excluded+screen.counts.unknown} · {screen.conditions} 项条件</p></div><button className="return-screen" onClick={()=>switchView('screen')}><CornerDownLeft size={14}/>返回修改条件</button></div>}
  <div className="rail-bottom"><ShieldCheck size={17}/><div>研究用途<small>不提供买卖建议</small></div></div></aside>
- <div className="workspace-body"><header className="workspace-topbar"><div><span>研究工作台</span><ChevronRight size={13}/><b>{modes.find(m=>m.id===view)?.label}</b></div><div className="workspace-snapshot"><BookOpen size={14}/><span>公开证据 · 历史快照</span></div></header>
+ <div className="workspace-body"><header className="workspace-topbar"><div><span>研究工作台</span><ChevronRight size={13}/><b>{modes.find(m=>m.id===view)?.label}</b></div><div className="workspace-snapshot"><BookOpen size={14}/><FuyaoEvidence/></div></header>
  <div className="workspace-scroll" ref={scroller}>
  {modes.map(m=><section key={m.id} className={`workspace-module module-${m.id}`} hidden={view!==m.id} aria-label={m.label}>{visited.includes(m.id)&&(m.id==='screen'?<Screen/>:m.id==='diagnosis'?<Diagnosis/>:<Events/>)}</section>)}
  </div></div></div></Research.Provider>;
