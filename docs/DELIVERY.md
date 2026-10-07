@@ -7,3 +7,6 @@
 - README、题目对应、AI使用记录、测试说明、真实模型调用样例、测试结果、演示脚本已提供。
 - 演示视频：本题可选，未录制。
 - 数据服务：无扶摇/iFinD访问凭据；采用公开原始财报与明确标注的腾讯历史行情替代，非实时服务。
+
+
+第二题新增 /events，详见EVENT_REQUIREMENTS.md；视频docs/media/event-demo.mp4（114秒），AI记录EVENT_AI_USAGE.md及event-validation.json，测试EVENT_TESTING.md。真实公告五节点与异常演练隔离。网站当前访问限制仍需所有者决定是否向评审开放。

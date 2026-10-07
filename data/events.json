@@ -1,0 +1,172 @@
+{
+  "version": "2026-10-07-reviewed-v1",
+  "collectedAt": "2026-10-07T02:45:24.773461+00:00",
+  "docs": [
+    {
+      "id": "R01",
+      "title": "回购方案首次披露",
+      "company": "600519",
+      "eventType": "回购",
+      "anchor": "2024-09-21",
+      "eventId": "600519-buyback-2024-09-21",
+      "occurredAt": "2024-09-20",
+      "disclosedAt": "2024-09-21",
+      "timePrecision": "日／中国标准时间，未获具体时分秒",
+      "collectedAt": "2026-10-07T02:45:24.773461+00:00",
+      "source": "贵州茅台公司公告",
+      "url": "https://www.moutai.com.cn/mtgf/attachDir/2024/09/2024093018194888233.pdf",
+      "announcement": "临2024-025",
+      "page": 1,
+      "sha256": "2cbd47077d0ad66d3eae95cfc6ad82211d106fba718a7dadd04d90b4eb155fd9",
+      "kind": "事实",
+      "weight": 5,
+      "verified": true,
+      "claims": {
+        "阶段": "方案待股东大会审议",
+        "计划下限（元）": "3000000000",
+        "计划上限（元）": "6000000000",
+        "价格上限（元/股）": "1795.78",
+        "用途": "注销并减少注册资本"
+      },
+      "note": "已人工核对原公告。仅收录核心节点，不代表完整公告覆盖。",
+      "relation": "direct",
+      "claimPages": {
+        "阶段": 2,
+        "计划下限（元）": 1,
+        "计划上限（元）": 1,
+        "价格上限（元/股）": 1,
+        "用途": 1
+      }
+    },
+    {
+      "id": "R02",
+      "title": "首次实施回购",
+      "company": "600519",
+      "eventType": "回购",
+      "anchor": "2024-09-21",
+      "eventId": "600519-buyback-2024-09-21",
+      "occurredAt": "2025-01-02",
+      "disclosedAt": "2025-01-03",
+      "timePrecision": "日／中国标准时间，未获具体时分秒",
+      "collectedAt": "2026-10-07T02:45:24.773461+00:00",
+      "source": "贵州茅台公司公告",
+      "url": "https://www.moutai.com.cn/mtgf/attachDir/2025/01/2025010321312746887.pdf",
+      "announcement": "临2025-001",
+      "page": 1,
+      "sha256": "9daacceadc60030620ca85863e00ac59576892202261f8d86e2ad40ae8575d0c",
+      "kind": "事实",
+      "weight": 5,
+      "verified": true,
+      "claims": {
+        "阶段": "实施中",
+        "累计股数（股）": "200900",
+        "累计金额（元，不含费用）": "299919221.00"
+      },
+      "note": "已人工核对原公告。仅收录核心节点，不代表完整公告覆盖。",
+      "relation": "direct",
+      "claimPages": {
+        "阶段": 1,
+        "累计股数（股）": 1,
+        "累计金额（元，不含费用）": 1
+      }
+    },
+    {
+      "id": "R03",
+      "title": "四月回购进展",
+      "company": "600519",
+      "eventType": "回购",
+      "anchor": "2024-09-21",
+      "eventId": "600519-buyback-2024-09-21",
+      "occurredAt": "2025-04-07",
+      "disclosedAt": "2025-04-08",
+      "timePrecision": "日／中国标准时间，未获具体时分秒",
+      "collectedAt": "2026-10-07T02:45:24.773461+00:00",
+      "source": "贵州茅台公司公告",
+      "url": "https://www.moutaichina.com/mtgf/attachDir/2025/04/2025040817580783272.pdf",
+      "announcement": "临2025-013",
+      "page": 2,
+      "sha256": "2e0227ad707b0b5030411ed774de28b540e6bcef289f7ef6f401d65c6dd3e1f7",
+      "kind": "事实",
+      "weight": 5,
+      "verified": true,
+      "claims": {
+        "阶段": "实施中",
+        "累计股数（股）": "1315901",
+        "累计金额（元，不含费用）": "1948495151.53",
+        "价格上限（元/股）": "1771.90"
+      },
+      "note": "价格上限由原始方案至本节点已有变化；中间调整公告未收录，不推定仅发生一次调整。另提及起草新一轮计划，不能自动并入本计划。",
+      "relation": "direct",
+      "claimPages": {
+        "阶段": 2,
+        "累计股数（股）": 2,
+        "累计金额（元，不含费用）": 2,
+        "价格上限（元/股）": 2
+      }
+    },
+    {
+      "id": "R04",
+      "title": "权益分派后调整价格上限",
+      "company": "600519",
+      "eventType": "回购",
+      "anchor": "2024-09-21",
+      "eventId": "600519-buyback-2024-09-21",
+      "occurredAt": "2025-06-26",
+      "disclosedAt": "2025-06-28",
+      "timePrecision": "日／中国标准时间，未获具体时分秒",
+      "collectedAt": "2026-10-07T02:45:24.773461+00:00",
+      "source": "巨潮资讯 · 公司公告",
+      "url": "https://static.cninfo.com.cn/finalpage/2025-06-28/1224017589.PDF",
+      "announcement": "临2025-025",
+      "page": 2,
+      "sha256": "3ae1910c9b80c19e78ac00e474fa35f917cb2a9c45af93de7029de5a5febdf27",
+      "kind": "事实",
+      "weight": 5,
+      "verified": true,
+      "claims": {
+        "价格上限（元/股）": "1744.30"
+      },
+      "note": "已人工核对原公告。仅收录核心节点，不代表完整公告覆盖。",
+      "relation": "direct",
+      "claimPages": {
+        "价格上限（元/股）": 2
+      }
+    },
+    {
+      "id": "R05",
+      "title": "回购实施完成，注销待核验",
+      "company": "600519",
+      "eventType": "回购",
+      "anchor": "2024-09-21",
+      "eventId": "600519-buyback-2024-09-21",
+      "occurredAt": "2025-08-29",
+      "disclosedAt": "2025-08-30",
+      "timePrecision": "日／中国标准时间，未获具体时分秒",
+      "collectedAt": "2026-10-07T02:45:24.773461+00:00",
+      "source": "贵州茅台公司公告",
+      "url": "https://www.moutaichina.com/mtgf/articleFileDir/2025-09/05/a07db96489bb4670aa4cde695b273f1b.pdf",
+      "announcement": "临2025-032",
+      "page": 2,
+      "sha256": "9ad8dda3c43bbc19bf9926394ddf4a030543455910f7ef1b1bb736bd4385215b",
+      "kind": "事实",
+      "weight": 5,
+      "verified": true,
+      "claims": {
+        "阶段": "回购已完成；注销结果待核验",
+        "累计股数（股）": "3927585",
+        "累计金额（元，不含费用）": "5999985966.95",
+        "价格上限（元/股）": "1744.30",
+        "拟注销日": "2025-09-01"
+      },
+      "note": "公告称拟于九月一日注销；本证据包没有注销完成的直接凭据，不能把计划日当完成日。",
+      "relation": "direct",
+      "claimPages": {
+        "阶段": 2,
+        "累计股数（股）": 2,
+        "累计金额（元，不含费用）": 2,
+        "价格上限（元/股）": 1,
+        "拟注销日": 3
+      }
+    }
+  ]
+}

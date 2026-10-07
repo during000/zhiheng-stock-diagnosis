@@ -1,0 +1,23 @@
+{
+  "extracted": {
+    "company": "600519",
+    "eventType": "回购",
+    "anchor": "2024-09-21",
+    "kind": "观点",
+    "quote": "本评论认为，回购若完成或改善每股指标，但尚不能证明经营需求改善。",
+    "summary": "评论认为，贵州茅台（600519）的回购若完成可能改善每股指标，但尚不能证明经营需求有所改善。"
+  },
+  "model": "google/gemini-2.5-flash",
+  "status": "live",
+  "message": "模型提案已通过引用与数字校验；请人工检查锚点。提交后仍为未核验证据，不能改变确认事实。",
+  "validatedAt": "2026-10-07T03:32:34.341392+00:00",
+  "checks": [
+    "live OpenRouter response",
+    "quote and numbers checked",
+    "UI classifies as opinion",
+    "user confirmed import remains unverified",
+    "five real documents merged",
+    "denial correction conflict expiry UI exercised",
+    "return to diagnosis carried research question"
+  ]
+}

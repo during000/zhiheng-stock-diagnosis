@@ -1,6 +1,6 @@
-# 知衡 · 个股多维诊断与证据验证
+# 知衡 · 证据研究工作台
 
-对应附件《题目03｜个股多维诊断与证据验证》，不是自然语言选股或完整事件监控产品。选取贵州茅台（600519.SH）完成一条可操作的诊断、核验、追问链路。
+已实现第一题个股诊断及第二题投资事件情报两条主链路，选取贵州茅台（600519.SH）。第三题自然语言选股待实现。第二题入口 /events，覆盖真实公告版本演化及隔离异常演练。
 
 产品网址：https://evidence-stock-diagnosis.eva000.chatgpt.site （默认访问受限；对外提交前需授权开放）
 
@@ -31,7 +31,7 @@ npx tsc --noEmit
 npm run build
 ```
 
-开发与发布沿用 Sites 的 Vinext / Cloudflare Workers 运行方式。部署时将 OPENROUTER_API_KEY 配为服务端 secret；LLM_MODEL 默认为 google/gemini-2.5-flash。`.openai/hosting.json` 仅保存项目身份，不放密钥。模型经 OpenRouter 调用，只传研究问题及公开证据，不上传用户画像或持仓。
+开发与发布沿用 Sites 的 Vinext / Cloudflare Workers 运行方式。部署时将 OPENROUTER_API_KEY 配为服务端 secret；LLM_MODEL 默认为 google/gemini-2.5-flash。`.openai/hosting.json` 仅保存项目身份与逻辑数据库绑定，不放密钥。模型经 OpenRouter 调用，只传研究问题及公开证据，不上传用户画像或持仓。
 
 ## 核心设计与 AI 分工
 
@@ -73,3 +73,23 @@ npm run build
 - `docs/TESTING.md`：主链路、计算、接口异常与合规边界测试。
 - `docs/DEMO.md`：约120秒演示脚本。视频为本题可选项，未录制，不把脚本当视频。
 - `docs/DELIVERY.md`：发布地址与交付状态。
+
+## 第二题：投资事件情报与证据时间线
+
+面向需追踪投资事件的个人研究者。访问 /events，导入五份真实公告，检查同一事件的版本、字段变化、四类时间、原始凭据与通知；AI提取用户材料，可修改归属后归档为未核验材料。
+
+数据：贵州茅台临2024-025、临2025-001/013/025/032。data/events.json保存URL、页码、SHA和采集时点。历史回放，非实时完整资讯；拟注销不等于已注销。隔离模拟标的SIM001验证否认、更正、冲突、时效，不是现实公司。
+
+核心：lib/events.mjs确定性归档；app/api/events/analyze实时模型提案。D1按HttpOnly随机cookie隔离浏览器工作区；刷新可恢复，乐观版本检查避免并发覆盖。无跨设备同步、后台监控、自动来源核验、邮件推送或任意URL抓取。扶摇/iFinD尚无授权，用户材料通过OpenRouter处理。AI不能提高来源权威性，未核验材料权重为零。
+
+首次运行数据库：先npm run build，再按顺序应用未执行的迁移（不要重复执行）：
+
+```sh
+node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_perpetual_kabuki.sql
+npm run dev
+node --test tests/events.test.mjs
+# 本地服务启动后，设置实际服务端口
+EVENT_BASE_URL=http://127.0.0.1:8787 node --test tests/events-api.test.mjs
+```
+
+验收：[要求映射](docs/EVENT_REQUIREMENTS.md)、[AI使用](docs/EVENT_AI_USAGE.md)、[测试](docs/EVENT_TESTING.md)、[演示](docs/EVENT_DEMO.md)。
