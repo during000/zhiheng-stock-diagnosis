@@ -1,0 +1,17 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {buildDiagnosis,growth,ratio,valuation,marketStats,selectDimensions,validateInterpretation,isAdvice,freshness,dimensions} from '../lib/engine.mjs';
+const data=JSON.parse(readFileSync(new URL('../data/evidence.json',import.meta.url)));
+test('半年报原始值复算同比并匹配公告',()=>{const x=buildDiagnosis(data);assert.ok(Math.abs(x.metrics.revenueGrowth-1.47)<.005);assert.ok(Math.abs(x.metrics.profitGrowth+1.95)<.005);assert.ok(Math.abs(x.metrics.cfoGrowth-438.84)<.005);assert.ok(Math.abs(x.metrics.gross-89.56)<.005);});
+test('TTM 使用滚动归母利润，不将半年利润直接翻倍',()=>{const x=buildDiagnosis(data);assert.equal(x.metrics.ttm,82320067101.68+44516880421.86-45402962298.10);assert.ok(Math.abs(x.metrics.pe-19.32)<.01);});
+test('现金流问题同时选择经营质量与财务趋势',()=>{assert.deepEqual(selectDimensions('现金流增长是否代表回款改善'),['经营质量','财务趋势']);});
+test('用户手动选择优先，非法维度失败',()=>{assert.ok(buildDiagnosis(data,'',['估值']).evidence.every(x=>x.dimension==='估值'));assert.throws(()=>buildDiagnosis(data,'',['不存在']));});
+test('缺失与失败不生成正常估值或行情结论',()=>{for(const s of ['missing','failure']){const x=buildDiagnosis(data,'',dimensions,s);assert.equal(x.metrics.pe,null);assert.equal(x.metrics.stats,null);for(const id of ['F09','F10'])assert.equal(x.allEvidence.find(e=>e.id===id).type,'未知');}});
+test('过期演练阻断当前估值，保留历史资料',()=>{const x=buildDiagnosis(data,'',dimensions,'stale');assert.equal(x.metrics.pe,null);assert.equal(x.allEvidence.find(e=>e.id==='F09').type,'未知');assert.ok(x.allEvidence.some(e=>e.id==='F01'));assert.equal(freshness('2026-09-01',new Date('2026-10-07')).state,'stale');});
+test('冲突演练明确模拟并隔离，不覆盖原始收入',()=>{const x=buildDiagnosis(data,'',dimensions,'conflict');assert.match(x.allEvidence.find(e=>e.id==='X01').text,/模拟/);assert.equal(x.allEvidence.find(e=>e.id==='F01').values[0],90703260964.48);});
+test('零分母、负利润、无效行情不生成 Infinity',()=>{assert.equal(ratio(1,0),null);assert.equal(growth(2,-1),null);assert.equal(valuation(100,-1,1),null);assert.equal(marketStats([{close:0},{close:1}]),null);assert.equal(marketStats([]),null);});
+test('最大回撤算法使用历史峰值；年化波动为样本标准差',()=>{const x=marketStats([{date:'a',close:100},{date:'b',close:120},{date:'c',close:90}]);assert.equal(x.drawdown,-25);assert.ok(Math.abs(x.change+10)<1e-8);assert.ok(x.volatility>0);});
+test('模型幻觉数字、无效引用、事实伪装均被拦截',()=>{const v={reason:'需要拆解现金流',insights:[{type:'推断',text:'主业改善仍需验证。',evidenceIds:['F04']}]};assert.equal(validateInterpretation(v,['F04']),v);assert.throws(()=>validateInterpretation({...v,insights:[{...v.insights[0],text:'增长百分比为 999'}]},['F04']));assert.throws(()=>validateInterpretation(v,['F01']));assert.throws(()=>validateInterpretation({...v,insights:[{...v.insights[0],type:'事实'}]},['F04']));});
+test('买卖、预测、承诺问题不进入模型决策链',()=>{for(const q of ['现在能买茅台吗','请给目标价','保证收益','sell now'])assert.equal(isAdvice(q),true);assert.equal(isAdvice('利润和现金流变化一致吗'),false);});
+test('关键证据具备原始来源、字段、单位和计算路径',()=>{const x=buildDiagnosis(data);assert.equal(new Set(x.allEvidence.map(e=>e.id)).size,x.allEvidence.length);for(const e of x.allEvidence){assert.ok(e.field&&e.formula&&e.scope);if(e.source!=='MARKET')assert.ok(data.sources.some(s=>s.id===e.source)&&e.page>0);}});
