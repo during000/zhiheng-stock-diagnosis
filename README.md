@@ -62,7 +62,7 @@ npm run build
 node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_perpetual_kabuki.sql
 node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0001_serious_grandmaster.sql
 # 本地Worker用.dev.vars读取运行时secret，文件已加入gitignore
-cp .env .dev.vars
+cp .env dist/server/.dev.vars
 npm start
 ```
 

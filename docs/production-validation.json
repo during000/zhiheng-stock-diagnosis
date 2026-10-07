@@ -1,0 +1,73 @@
+{
+  "verifiedAt": "2026-10-07T16:22:47.524Z",
+  "origin": "https://evidence-stock-diagnosis.eva000.chatgpt.site",
+  "authorization": "none; public requests without Sites login or bypass headers",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "anonymous": true
+    },
+    {
+      "path": "/screen",
+      "status": 200,
+      "anonymous": true
+    },
+    {
+      "path": "/events",
+      "status": 200,
+      "anonymous": true
+    },
+    {
+      "path": "/media/event-demo.mp4",
+      "status": 200,
+      "type": "video/mp4",
+      "bytes": 1681001,
+      "anonymous": true
+    },
+    {
+      "path": "/api/screen/parse",
+      "status": "live",
+      "model": "google/gemini-2.5-flash",
+      "conditions": [
+        {
+          "field": "revenueGrowth",
+          "op": ">=",
+          "value": 0,
+          "assumption": true
+        },
+        {
+          "field": "profitGrowth",
+          "op": ">=",
+          "value": 0,
+          "assumption": true
+        },
+        {
+          "field": "pb",
+          "op": "<=",
+          "value": 8,
+          "assumption": true
+        },
+        {
+          "field": "volatility",
+          "op": "<=",
+          "value": 35,
+          "assumption": true
+        }
+      ]
+    },
+    {
+      "path": "/api/events/analyze",
+      "status": "live",
+      "model": "google/gemini-2.5-flash",
+      "extracted": {
+        "company": "600519",
+        "eventType": "回购",
+        "anchor": "2024-09-21",
+        "kind": "观点",
+        "quote": "本评论认为，回购若完成或改善每股指标，但尚不能证明经营需求改善。",
+        "summary": "评论认为贵州茅台的回购若完成可能改善每股指标，但不能证明经营需求改善。"
+      }
+    }
+  ]
+}
