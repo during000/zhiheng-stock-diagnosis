@@ -8,4 +8,4 @@
 
 失败：缺密钥503；接口超时/错误/JSON或引用不合规502；显示明确错误、不落库、不冒充生成。已入库研究可继续查看。网络材料不执行任意URL抓取，避免来源冒充和服务器任意网络访问。
 
-验证记录：见自动化event tests与event-api tests，覆盖造引用/造锚点/造数字/交易建议拒绝。实时模型与UI验证结果另存event-validation.json（若尚未生成，请勿宣称完成）。
+验证记录：见自动化event tests与event-api tests，覆盖造引用/造锚点/造数字/交易建议拒绝。实时模型与UI验证结果另存event-validation.json。

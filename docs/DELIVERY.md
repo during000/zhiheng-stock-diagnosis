@@ -1,14 +1,34 @@
-# 交付清单
+# 三题交付清单
 
-- 产品：知衡 · 个股证据诊断，贵州茅台600519.SH。
-- 网站：https://evidence-stock-diagnosis.eva000.chatgpt.site 。托管平台确认发布succeeded；当前默认私有，外部评审前需授权公开。
-- 源码：https://github.com/during000/zhiheng-stock-diagnosis （公开源码，不含密钥）。
-- 主链路：研究问题 → 可改诊断维度 → 实时AI解释与确定性指标 → 事实/推断/未知与正负矛盾证据 → 原始字段/PDF/期次/行情/同行 → 追问/导出。
-- README、题目对应、AI使用记录、测试说明、真实模型调用样例、测试结果、演示脚本已提供。
-- 演示视频：本题可选，未录制。
-- 数据服务：无扶摇/iFinD访问凭据；采用公开原始财报与明确标注的腾讯历史行情替代，非实时服务。
+## 提交链接
 
+- Web产品：https://evidence-stock-diagnosis.eva000.chatgpt.site/
+- 代码与README：https://github.com/during000/zhiheng-stock-diagnosis
+- 第二题必交视频：https://evidence-stock-diagnosis.eva000.chatgpt.site/media/event-demo.mp4 （114秒）。源文件：`public/media/event-demo.mp4`。
+- 最终线上验收、访问状态、浏览器验证和测试结果：`FINAL_VALIDATION.md`。请以该记录确认当前状态。
 
-第二题新增 /events，详见EVENT_REQUIREMENTS.md；视频docs/media/event-demo.mp4（114秒），AI记录EVENT_AI_USAGE.md及event-validation.json，测试EVENT_TESTING.md。真实公告五节点与异常演练隔离。网站当前访问限制仍需所有者决定是否向评审开放。
+## 三题核心能力
 
-第三题新增 `/screen`，三家公司真实样本选股，AI解析/条件编辑/冲突阻断/三值结果/原始凭据/单条件敏感性/比较/D1保存恢复/导出/诊断衔接已实现。README及SCREEN_REQUIREMENTS.md、SCREEN_AI_USAGE.md、SCREEN_TESTING.md、screen-validation.json齐备；44项自动化检查通过。第三题附件视频为可选，本次未另录视频。
+|用户题号|模块与入口|验收映射|AI记录|测试说明|
+|---|---|---|---|---|
+|第一题|个股诊断 `/#diagnosis`|REQUIREMENTS.md|AI_USAGE.md|TESTING.md|
+|第二题|事件证据 `/#events`|EVENT_REQUIREMENTS.md|EVENT_AI_USAGE.md|EVENT_TESTING.md|
+|第三题|意图选股 `/#screen`|SCREEN_REQUIREMENTS.md|SCREEN_AI_USAGE.md|SCREEN_TESTING.md|
+
+附件文件编号02对应用户第三题，03对应用户第一题；这里按用户给出的题号说明。
+
+## 评审操作（约5分钟）
+
+1. 首页输入“经营改善、估值合理、走势相对稳定”，点击AI解析；检查黄色示例阈值，确认执行。默认结果五粮液入选，另两家排除。点击指标可回到原始字段、公式、时间与PDF页码。
+2. 勾选两家公司比较，关闭比较后保存策略；刷新，从已存策略载入。修改归母利润同比为≥-5，确认重算，可看到茅台归属改变；也可展开条件敏感性查看单条件影响。
+3. 点击茅台“研究这家公司”，确认问题携带已执行条件。生成诊断，打开分析引用和现金流凭据；检查财务期次、估值与行情、同业比较及缺失证据。
+4. 切换事件证据。新浏览器工作区初始为R01；从收件箱导入R02–R05，检查同一事件的累计金额、股数和拟注销状态、版本比较与通知。再次导入重复资料无新增通知。
+5. 打开原始凭据，区分发生、披露、采集、入库、更新时间。展开“导入新材料”，AI提取评论，确认归档后仍为未核验、权重零；没有原始方案日期时不可自动合并。
+6. 切换“隔离演练区”，按S01–S05顺序导入，验证否认、更正、冲突。推进演练时钟检查过期与通知；模拟数据始终隔离。
+7. 回到真实事件，展开标的关系进入资金与股本诊断；侧栏返回修改条件。研究结果可以修正条件，没有自动买卖或收益结论。
+
+## 提交范围与边界
+
+三家公司真实历史样本；完整诊断与事件仅茅台。财务2026H1、行情2026-09-30、事件2024–2025；没有实时数据服务、后台监控、全A筛选、回测或跨设备账号。保存/比较满足选股题要求中的研究延续选项。无扶摇/iFinD授权，来源替代与口径已说明。
+
+第一、第三题视频可选，未单独录制。第二题视频采用实际产品操作画面剪辑，展示旧布局；当前入口按上述步骤操作。源码不含密钥、持仓或用户隐私。
