@@ -8,6 +8,13 @@
       "when": 1791341214775,
       "tag": "0000_perpetual_kabuki",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1791372364669,
+      "tag": "0001_serious_grandmaster",
+      "breakpoints": true
     }
   ]
 }

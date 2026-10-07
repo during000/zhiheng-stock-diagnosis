@@ -1,6 +1,6 @@
 # 知衡 · 证据研究工作台
 
-已实现第一题个股诊断及第二题投资事件情报两条主链路，选取贵州茅台（600519.SH）。第三题自然语言选股待实现。第二题入口 /events，覆盖真实公告版本演化及隔离异常演练。
+已实现三题可运行主链路：自然语言选股 `/screen` → 贵州茅台个股诊断 `/` → 投资事件证据时间线 `/events` → 调整条件。选股覆盖贵州茅台、五粮液、泸州老窖三个真实样本；完整诊断与事件案例聚焦贵州茅台。数据范围、历史时点与未做事项在各模块明确展示。
 
 产品网址：https://evidence-stock-diagnosis.eva000.chatgpt.site （默认访问受限；对外提交前需授权开放）
 
@@ -93,3 +93,21 @@ EVENT_BASE_URL=http://127.0.0.1:8787 node --test tests/events-api.test.mjs
 ```
 
 验收：[要求映射](docs/EVENT_REQUIREMENTS.md)、[AI使用](docs/EVENT_AI_USAGE.md)、[测试](docs/EVENT_TESTING.md)、[演示](docs/EVENT_DEMO.md)。
+
+## 第三题：自然语言智能选股与策略解释器
+
+入口 `/screen`：描述意图 → AI提取并澄清 → 检查/修改条件 → 确认执行 → 逐股入选/排除/未知凭据 → 条件敏感性 → 比较/保存/导出/继续诊断。三家公司白酒样本，非全A市场。源码`lib/screen.mjs`为确定性引擎，`app/api/screen/parse`仅提供模型提案，`app/api/screen/run`执行，`app/api/screen/saved`保存D1快照。
+
+真实财务为2026半年报，行情截止2026-09-30。`data/screen.json`含原字段、PDF页码、来源、SHA及65日收盘；估值用未复权，走势用前复权。五粮液/老窖缺全年利润，PE-TTM不猜；PB阈值只是用户可改示例，不代表估值合理结论。缺失、冲突、失败与过期不会自动通过。
+
+首次数据库启动需要按顺序应用未执行迁移：现有0000事件表之外，新增0001策略表；已执行迁移不要重放。先构建生成配置，再执行新增文件：
+
+```sh
+npm run build
+node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0001_serious_grandmaster.sql
+node --test tests/screen.test.mjs
+# 本地服务运行后：
+SCREEN_ORIGIN=http://127.0.0.1:8787 node --test tests/screen-api.test.mjs
+```
+
+目标用户、设计取舍与验收映射：[SCREEN_REQUIREMENTS](docs/SCREEN_REQUIREMENTS.md)；[AI使用与修正记录](docs/SCREEN_AI_USAGE.md)；[测试说明](docs/SCREEN_TESTING.md)。扶摇/iFinD尚未授权，没有全市场检索、回测或后台监控。支持保存与比较；工作区在同浏览器恢复，暂无跨设备同步。完整诊断及真实事件仅覆盖茅台，其余样本不伪装支持完整分析。

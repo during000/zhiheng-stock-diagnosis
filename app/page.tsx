@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { Layers3, BookOpen, ShieldCheck, Sparkles, ArrowUpRight, Download, CircleHelp, Check, Clock3, ExternalLink, AlertTriangle, Activity, FileText, LoaderCircle, RotateCcw } from 'lucide-react';
+import { Layers3, Search, BookOpen, ShieldCheck, Sparkles, ArrowUpRight, Download, CircleHelp, Check, Clock3, ExternalLink, AlertTriangle, Activity, FileText, LoaderCircle, RotateCcw } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -34,7 +34,7 @@ export default function Home(){
   catch(e){setError(e instanceof Error?e.message:'网络请求失败；已保留上一版结果。');}
   finally{setBusy(false);}
  }
- useEffect(()=>{if(new URLSearchParams(window.location.search).get('research')==='buyback'){setQuestion('回购涉及的资金使用与股本变化，应如何结合财务资料继续核验？');setSelected(['财务趋势','估值','事件与风险'].filter(d=>dimensions.includes(d)));setManual(false);}},[]);
+ useEffect(()=>{if(new URLSearchParams(window.location.search).get('research')==='screen'){setQuestion('筛选条件中的收入、利润与估值，是否足以证明经营改善？还缺少哪些证据？');setSelected(dimensions);setManual(false);}if(new URLSearchParams(window.location.search).get('research')==='buyback'){setQuestion('回购涉及的资金使用与股本变化，应如何结合财务资料继续核验？');setSelected(['财务趋势','估值','事件与风险'].filter(d=>dimensions.includes(d)));setManual(false);}},[]);
  useEffect(()=>{
   const ctx=(document as unknown as {modelContext?:{registerTool:(tool:unknown,opts:unknown)=>void}}).modelContext;
   if(!ctx?.registerTool)return;const lifecycle=new AbortController();
@@ -44,7 +44,7 @@ export default function Home(){
  function open(id:string){const e=(diagnosis.allEvidence as Evidence[]).find(e=>e.id===id);if(e)setFocus(e);}
  const source=focus?sources.find(s=>s.id===focus.source):undefined;
  const sourceLabel=(e:Evidence)=>e.source==='MARKET'?'腾讯财经 · 行情快照':`${e.source} · 第 ${e.page} 页`;
- return <div className="shell"><aside><a className="brand" href="/">知衡<span>研究工作台</span></a><div className="nav active"><Layers3 size={18}/>个股诊断</div><button className="nav" onClick={()=>setTab('sources')}><BookOpen size={18}/>证据资料库</button><a className="nav" href="/events"><Clock3 size={18}/>事件情报与时间线</a><div className="aside-note"><ShieldCheck size={20}/><p>让判断有据可查</p><small>事实 · 推断 · 未知</small></div></aside><main>
+ return <div className="shell"><aside><a className="brand" href="/">知衡<span>研究工作台</span></a><a className="nav" href="/screen"><Search size={18}/>自然语言选股</a><div className="nav active"><Layers3 size={18}/>个股诊断</div><button className="nav" onClick={()=>setTab('sources')}><BookOpen size={18}/>证据资料库</button><a className="nav" href="/events"><Clock3 size={18}/>事件情报与时间线</a><div className="aside-note"><ShieldCheck size={20}/><p>让判断有据可查</p><small>事实 · 推断 · 未知</small></div></aside><main>
  <header><span>研究工作台 / 个股诊断</span><span><FileText size={14}/> 公开证据快照版 · 2026.10.07</span></header>
  <section className="company"><div><div className="eyebrow">A 股 · 上交所 · 品牌消费 / 白酒</div><h1>贵州茅台 <span>600519.SH</span></h1><p>财务截至 2026-06-30 · 半年报未经审计 · 含财务子公司</p></div><div className="company-actions"><div className="stamp">最新财报披露<br/><strong>2026.08.15</strong></div><Button variant="outline" onClick={exportResearch}><Download size={15}/>{saved?'已导出研究记录':'导出研究记录'}</Button></div></section>
  <div className="data-notice"><Clock3 size={16}/><span>行情截至 {dataset.market.bars.at(-1)?.date}，为历史快照。当前未连接扶摇 / iFinD，公开财报与替代行情源已标明；终端动销等缺失信息不补猜。</span><button onClick={()=>setTab('sources')}>查看数据边界</button></div>

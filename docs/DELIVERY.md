@@ -10,3 +10,5 @@
 
 
 第二题新增 /events，详见EVENT_REQUIREMENTS.md；视频docs/media/event-demo.mp4（114秒），AI记录EVENT_AI_USAGE.md及event-validation.json，测试EVENT_TESTING.md。真实公告五节点与异常演练隔离。网站当前访问限制仍需所有者决定是否向评审开放。
+
+第三题新增 `/screen`，三家公司真实样本选股，AI解析/条件编辑/冲突阻断/三值结果/原始凭据/单条件敏感性/比较/D1保存恢复/导出/诊断衔接已实现。README及SCREEN_REQUIREMENTS.md、SCREEN_AI_USAGE.md、SCREEN_TESTING.md、screen-validation.json齐备；44项自动化检查通过。第三题附件视频为可选，本次未另录视频。

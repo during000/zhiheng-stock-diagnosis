@@ -1,0 +1,37 @@
+{
+  "verifiedAt": "2026-10-07T11:41:15.658586+00:00",
+  "environment": "local Cloudflare Workers + local D1",
+  "model": "google/gemini-2.5-flash via OpenRouter",
+  "intent": "经营改善、估值合理、走势相对稳定",
+  "liveUIParse": "passed after null-operator correction; four product assumption thresholds 0,0,8,35",
+  "defaultResult": {
+    "included": [
+      "五粮液"
+    ],
+    "excluded": [
+      "贵州茅台",
+      "泸州老窖"
+    ]
+  },
+  "uiChecks": {
+    "evidenceRawFields": "passed MT profit values/PDF p5/formula/time",
+    "comparison": "passed MT/WLY table, PE missing and cash flow negative retained",
+    "singleConditionChange": "profit >= -5 adds MT, dirty save disabled before confirmation",
+    "saveRestore": "D1 saved, page reload lists strategy, restore counts included2 excluded1",
+    "conflict": "revenue >=0 and <0 shows conflict, execution disabled",
+    "missing": "PE<=25 MT included, WLY/LZ unknown",
+    "diagnosisHandoff": "prefilled research question at /?research=screen"
+  },
+  "automated": {
+    "tests": 44,
+    "passed": 44,
+    "failed": 0
+  },
+  "limits": [
+    "only three samples",
+    "historical snapshot",
+    "no Fuyao/iFinD credentials",
+    "no full-market/backtest/background monitor",
+    "production provider interruption not tested"
+  ]
+}

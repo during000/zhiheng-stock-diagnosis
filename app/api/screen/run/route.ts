@@ -1,0 +1,2 @@
+import data from '@/data/screen.json';import {screen} from '@/lib/screen.mjs';import {response} from '@/lib/screen-store';
+export async function POST(req:Request){try{const raw=await req.text();if(raw.length>15000)return response({error:'请求过长'},413);const {plan,scenario,confirmed}=JSON.parse(raw);if(confirmed!==true)return response({error:'请先检查并确认条件'},400);return response(screen(data,plan,scenario||'normal'));}catch(e){return response({error:e instanceof Error?e.message:'筛选失败，上一版保留'},400);}}
